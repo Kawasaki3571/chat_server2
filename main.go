@@ -3,7 +3,7 @@ package main
 import(
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/chat_server2/handler"
+	// "github.com/chat_server2/handler"
 	"github.com/chat_server2/router"
 )
 
@@ -14,7 +14,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// e.GET("/hello", handler.MainPage())
-	router.rooting(e)
+	router.Rooting(e)
 
 
 	// go func() {

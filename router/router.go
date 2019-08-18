@@ -5,6 +5,6 @@ import(
 	"github.com/chat_server2/handler"
 )
 
-func rooting(e *echo.Echo) {
+func Rooting(e *echo.Echo) {
 	e.GET("/hello", handler.MainPage())
 }
