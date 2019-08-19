@@ -7,4 +7,7 @@ import(
 
 func Rooting(e *echo.Echo) {
 	e.GET("/hello", handler.MainPage())
-}
+
+	user := handler.NewUser()
+	e.GET("/users", user.List())
+} 
