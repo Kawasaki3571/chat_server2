@@ -10,8 +10,8 @@ type (
 		List(c echo.Context)
 	}
 	Message struct{
-		Id		int
-		Text	string
+		// Id		int
+		// Text	string
 	}
 )
 
