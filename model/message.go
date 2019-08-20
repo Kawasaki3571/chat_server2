@@ -1,8 +1,5 @@
-package service
-
-import(
-	"time"
-)
+package model
+import ()
 
 type(
 	Message struct {
@@ -14,9 +11,4 @@ type(
 
 func NewMessage(c echo.Context) (*Message) {
 	return &NewMessage{}
-}
-
-func Create(c echo.Context) (*Message) {
-	m := NewMessage(c)
-	
 }
