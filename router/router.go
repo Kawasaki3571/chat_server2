@@ -13,4 +13,5 @@ func Rooting(e *echo.Echo) {
 
 	message := handler.NewMessage()
 	e.GET("/messages", message.List())
+	e.POST("/messages", message.Create)
 } 
