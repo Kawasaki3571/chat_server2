@@ -1,7 +1,7 @@
 package service
-
 import(
 	"time"
+	"github.com/labstack/echo"
 )
 
 type(
@@ -13,10 +13,10 @@ type(
 )
 
 func NewMessage(c echo.Context) (*Message) {
-	return &NewMessage{}
+	return &Message{}
 }
 
 func Create(c echo.Context) (*Message) {
-	m := NewMessage(c)
-	
+	// m := NewMessage(c)
+	return nil
 }

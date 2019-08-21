@@ -5,6 +5,13 @@ import(
 	"github.com/labstack/echo/middleware"
 	// "github.com/chat_server2/handler"
 	"github.com/chat_server2/router"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gocraft/dbr"
+)
+
+var (
+	conn, _ = dbr.Open("mysql", "root:@tcp(localhost:3306)/workout", nil)
+	sess        = conn.NewSession(nil)
 )
 
 func main() {
