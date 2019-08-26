@@ -5,6 +5,7 @@ import(
 	"github.com/labstack/echo/middleware"
 	// "github.com/chat_server2/handler"
 	"github.com/chat_server2/router"
+	// "github.com/chat_server2/db"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
 )
@@ -23,10 +24,7 @@ func main() {
 	// e.GET("/hello", handler.MainPage())
 	router.Rooting(e)
 
-
-	// go func() {
 	if err := e.Start(":1323"); err != nil {
 		e.Logger.Info("shutting down the server")
 	}
-	// }()
 }

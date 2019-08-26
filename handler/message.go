@@ -13,17 +13,18 @@ type (
 	IMessage interface {
 		List(c echo.Context)
 	}
-	Message struct{
-		// Id		int
-		// Text	string
+	Message struct {
+		Id			int 			`json:"id"`
+		Text		string 			`json:"text"`
+		CreatedAt 	time.Time 		`json:"created_at"`
 	}
 )
 
 var (
 	conn, _ = dbr.Open("mysql", "root:@tcp(localhost:3306)/workout", nil)
 	sess        = conn.NewSession(nil)
+	// messages map[string]*Messages
 )
-
 
 func NewMessage() *Message{
 	return &Message{}
@@ -38,7 +39,7 @@ func (*Message) List() echo.HandlerFunc {
 func (*Message) Create(c echo.Context) error {
 	message := service.NewMessage(c)
 	sess.InsertInto("messageinfo").Columns("id", "text", "created_at").Values(message.Id, message.Text, time.Now()).Exec()
-	return c.NoContent(http.StatusOK)
+	return c.JSON(http.StatusOK, message)
 }
 // func InsertAuthor(c echo.Context) error {
 //     author := new(Author)

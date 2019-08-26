@@ -7,7 +7,7 @@ import (
 )
 // マイグレーションツールが見つかり使い方を習得し次第消す
 func DatabaseInit() error {
-	db, err := sql.Open("mysql", "user=root dbname=test_db password=root sslmode=disable")
+	_, err := sql.Open("mysql", "user=root dbname=test_db password=root sslmode=disable")
 	if err != nil{
 		return err
 	}
@@ -20,13 +20,14 @@ func Migration() error{
 	if err != nil{
 		return err
 	}
-	_, err = db.Exec(`
+	query, err := db.Query(`
 		CREATE TABLE IF NOT EXISTS "messages" (
 			"id" INTEGER, 
 			"text" VARCHAR(255), 
 			"created_at" DATETIME,
 			PRIMARY KEY ("id")
 		)`)
+	defer query.Close()
 	if err != nil{
 		return err
 	}
