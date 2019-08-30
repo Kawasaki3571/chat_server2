@@ -1,4 +1,6 @@
 development:
   driver: mysql
   # open: user=root dbname=test_db
-  open: tcp:localhost:3306*mysql/root/root
+  # open: tcp:localhost:3306*mysql/root/root
+  # open: user=root dbname=test_db
+  open: root:root@tcp(localhost:3306)/local_database
