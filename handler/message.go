@@ -8,6 +8,7 @@ import(
 	"github.com/gocraft/dbr"
 	"github.com/chat_server2/model"
 	"strconv"
+	"fmt"
 )
 
 type (
@@ -40,17 +41,15 @@ func (*Message) List() echo.HandlerFunc {
 }
 
 func (*Message) Get(c echo.Context) error {
-	// id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	// id, err := strconv.ParseInt(c.Param("id"))
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil{
-		// return err
 		return nil
+		fmt.Println("エラー1")
 	}
 	message := model.GetMessage(c, id)
 	if message == nil {
-		// return errors.NewHTTPError(conf.HTTPStatusNotFound, err, "No Message")
 		return nil
+		fmt.Println("エラー2")
 	}
 	return c.JSON(http.StatusOK, message)
 }

@@ -17,12 +17,15 @@ func NewMessage(c echo.Context) (*Message) {
 	return &Message{}
 }
 
+func NewMessage2(id int, text string, createdAt time.Time) (*Message) {
+	return &Message{Id: id,Text: text,CreatedAt: createdAt}
+}
+
 func GetMessage(c echo.Context, id int) (*Message) {
-	db := gormConnect()
+	db := GormConnect()
 	defer db.Close()
 
 	message := NewMessage(c)
-	// return db.Find(&messages, "id=?", id)
 	db.Find(&message, "id=?", id)
 	return message
 }
