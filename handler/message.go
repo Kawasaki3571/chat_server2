@@ -3,10 +3,11 @@ package handler
 import(
 	"github.com/labstack/echo"
 	"net/http"
-	"github.com/chat_server2/service"
 	"time"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
+	"github.com/chat_server2/model"
+	"strconv"
 )
 
 type (
@@ -31,21 +32,33 @@ func NewMessage() *Message{
 }
 
 func (*Message) List() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.String(http.StatusOK, "messages")
+	// return func(c echo.Context) error {
+	// 	return c.String(http.StatusOK, "messages")
+	// }
+	return nil
+	
+}
+
+func (*Message) Get(c echo.Context) error {
+	// id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	// id, err := strconv.ParseInt(c.Param("id"))
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil{
+		// return err
+		return nil
 	}
+	message := model.GetMessage(c, id)
+	if message == nil {
+		// return errors.NewHTTPError(conf.HTTPStatusNotFound, err, "No Message")
+		return nil
+	}
+	return c.JSON(http.StatusOK, message)
 }
 
 func (*Message) Create(c echo.Context) error {
-	message := service.NewMessage(c)
-	sess.InsertInto("messageinfo").Columns("id", "text", "created_at").Values(message.Id, message.Text, time.Now()).Exec()
-	return c.JSON(http.StatusOK, message)
+	return nil
 }
-// func InsertAuthor(c echo.Context) error {
-//     author := new(Author)
-//     if err := c.Bind(author); err != nil {
-//         return err
-//     }
-//     sess.InsertInto(authortable).Columns("id", "name").Values(author.Id, author.Name).Exec()
-//     return c.NoContent(http.StatusOK)
-// }
+
+
+
+

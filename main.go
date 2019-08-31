@@ -3,9 +3,7 @@ package main
 import(
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	// "github.com/chat_server2/handler"
 	"github.com/chat_server2/router"
-	// "github.com/chat_server2/db"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
 )
