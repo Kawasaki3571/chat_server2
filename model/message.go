@@ -1,5 +1,7 @@
 package model
-import ()
+import (
+	"github.com/chat_server2/model"
+)
 
 type(
 	Message struct {

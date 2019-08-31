@@ -25,15 +25,3 @@ func (*User) List() echo.HandlerFunc {
 		return c.String(http.StatusOK, "users")
 	}
 }
-
-// func (h *News) List(c echo.Context) error {
-// 	f, err := form.NewPaging(c)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	newses, pagination, err := service.NewNews().GetList(f.Page, f.PerPage)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return c.JSON(200, map[string]interface{}{"news": response.NewNewses(newses), "pagination": response.NewPagination(pagination)})
-// }

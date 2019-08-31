@@ -3,7 +3,6 @@ package handler
 import(
 	"github.com/labstack/echo"
 	"net/http"
-	"github.com/chat_server2/service"
 	"time"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
@@ -37,15 +36,5 @@ func (*Message) List() echo.HandlerFunc {
 }
 
 func (*Message) Create(c echo.Context) error {
-	message := service.NewMessage(c)
-	sess.InsertInto("messageinfo").Columns("id", "text", "created_at").Values(message.Id, message.Text, time.Now()).Exec()
-	return c.JSON(http.StatusOK, message)
+	return nil
 }
-// func InsertAuthor(c echo.Context) error {
-//     author := new(Author)
-//     if err := c.Bind(author); err != nil {
-//         return err
-//     }
-//     sess.InsertInto(authortable).Columns("id", "name").Values(author.Id, author.Name).Exec()
-//     return c.NoContent(http.StatusOK)
-// }
