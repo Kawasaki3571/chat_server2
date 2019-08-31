@@ -1,6 +1,8 @@
 package model
 import (
-	"github.com/chat_server2/model"
+	// "github.com/chat_server2/model"
+	"time"
+	"github.com/labstack/echo"
 )
 
 type(
@@ -12,13 +14,15 @@ type(
 )
 
 func NewMessage(c echo.Context) (*Message) {
-	return &NewMessage{}
+	return &Message{}
 }
 
-func GetMessage(c echo.Context, id) (*Message) {
-	db := model.gormConnect()
+func GetMessage(c echo.Context, id int) (*Message) {
+	db := gormConnect()
 	defer db.Close()
 
-	messages := NewMessage()
-	return db.Find(&messages, "id=?", id) 
+	message := NewMessage(c)
+	// return db.Find(&messages, "id=?", id)
+	db.Find(&message, "id=?", id)
+	return message
 }

@@ -35,17 +35,22 @@ func (*Message) List() echo.HandlerFunc {
 	// return func(c echo.Context) error {
 	// 	return c.String(http.StatusOK, "messages")
 	// }
+	return nil
 	
 }
 
-func (*Message) Get(c echo.Context) echo.HandlerFunc {
-	id, err := stroconv.ParseInt(c.Param("id"), 10, 64)
+func (*Message) Get(c echo.Context) error {
+	// id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	// id, err := strconv.ParseInt(c.Param("id"))
+	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil{
-		return errors.NewHTTPError(conf.HTTPStatusBadRequest, err, "")
+		// return err
+		return nil
 	}
-	message := model.GetMessage(id)
+	message := model.GetMessage(c, id)
 	if message == nil {
-		return errors.NewHTTPError(conf.HTTPStatusNotFound, err, "No Message")
+		// return errors.NewHTTPError(conf.HTTPStatusNotFound, err, "No Message")
+		return nil
 	}
 	return c.JSON(http.StatusOK, message)
 }
