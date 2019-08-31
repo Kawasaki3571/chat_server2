@@ -14,3 +14,11 @@ type(
 func NewMessage(c echo.Context) (*Message) {
 	return &NewMessage{}
 }
+
+func GetMessage(c echo.Context, id) (*Message) {
+	db := model.gormConnect()
+	defer db.Close()
+
+	messages := NewMessage()
+	return db.Find(&messages, "id=?", id) 
+}
