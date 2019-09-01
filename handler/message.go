@@ -25,19 +25,19 @@ type (
 var (
 	conn, _ = dbr.Open("mysql", "root:@tcp(localhost:3306)/workout", nil)
 	sess        = conn.NewSession(nil)
-	// messages map[string]*Messages
 )
 
 func NewMessage() *Message{
 	return &Message{}
 }
 
-func (*Message) List() echo.HandlerFunc {
-	// return func(c echo.Context) error {
-	// 	return c.String(http.StatusOK, "messages")
-	// }
-	return nil
-	
+func (*Message) List(c echo.Context) error {
+	messages := model.ListMessage(c)
+	if messages == nil {
+		return nil
+		fmt.Println("エラー3")
+	}
+	return c.JSON(http.StatusOK, messages)
 }
 
 func (*Message) Get(c echo.Context) error {

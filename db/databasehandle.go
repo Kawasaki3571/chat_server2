@@ -21,16 +21,14 @@ func Seed() error {
 	defer db.Close()
 
 	message := model.NewMessage2(1, "test_pyo", time.Now())
-	// message.Id := 1
-	// message.Text := "test_pyo"
-	// message.CreatedAt := time.Now()
+	db.Create(&message)
+	message = model.NewMessage2(2, "test_pyopyo", time.Now())
 	db.Create(&message)
 	return nil
 }
 
 func main() {
 	DatabaseInit()
-	// Migration()
 	Seed()
 	defer fmt.Println("終了")
 }
