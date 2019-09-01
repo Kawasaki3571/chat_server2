@@ -12,7 +12,7 @@ func Rooting(e *echo.Echo) {
 	e.GET("/users", user.List())
 
 	message := handler.NewMessage()
-	e.GET("/messages", message.List())
+	e.GET("/messages", message.List)
 	e.POST("/messages", message.Create)
 	e.GET("/messages/:id", message.Get)
 } 
