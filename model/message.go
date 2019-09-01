@@ -9,7 +9,7 @@ type(
 	Message struct {
 		Id			int 			`json:"id"`
 		Text		string 			`json:"text"`
-		CreatedAt 	time.Time 		`json:"created_at"`
+		CreatedAt 	*time.Time 		`json:"created_at"`
 	}
 	Messages []Message
 )
@@ -43,3 +43,18 @@ func ListMessage(c echo.Context) (*Messages) {
 	db.Find(&messages)
 	return messages
 }
+
+func CreateMessage(c echo.Context) (*Message) {
+	db := GormConnect()
+	defer db.Close()
+
+	return nil
+
+}
+
+
+
+
+
+
+

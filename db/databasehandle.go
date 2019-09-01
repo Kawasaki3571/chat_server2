@@ -22,6 +22,8 @@ func Seed() error {
 
 	message := model.NewMessage2(1, "test_pyo", time.Now())
 	db.Create(&message)
+	message = model.NewMessage2(2, "test_pyopyo", time.Now())
+	db.Create(&message)
 	return nil
 }
 
