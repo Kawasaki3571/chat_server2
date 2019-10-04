@@ -49,7 +49,6 @@ func Sort(mstr []tagStr) []tagStr {
     }
     for {
         if mstr[so - 1].point < mstr[so].point {
-        	fmt.Println("うううううううううううう")
             mstr[so - 1], mstr[so] = mstr[so], mstr[so -1]
             so = 0
         }
@@ -58,7 +57,6 @@ func Sort(mstr []tagStr) []tagStr {
             break
         }
     }
-    fmt.Println("いいいいいいいいいいい")
     return mstr
 }
 
@@ -128,10 +126,9 @@ func GetTweet() {
                 }
             }
             fmt.Println(i)
-            if i % 3 == 0 {
+            if i % 40 == 0 {
             	if len(arrayToStruct(tags_form)) > 2{
                 	for k := 0; k < 10; k++{
-                		fmt.Println("あああああああああ")
                     	fmt.Println(arrayToStruct(tags_form)[k])
                 	}
                 	tags_form = nil
