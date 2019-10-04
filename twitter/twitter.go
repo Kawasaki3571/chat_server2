@@ -95,16 +95,6 @@ func arrayToStruct(array []tagImg) []tagStr {
     // m_structt = compress(m_structt)
     return Sort(m_structt)
 }
-// func compress(array []tagStr) []tagStr {
-//     for i, _ := range array {
-//         for j := i+1; j < len(array); j++ {
-//             if array[i].text == array[j].text{
-//                 array[j].point = 0
-//             }
-//         }
-//     }
-//     return array
-// } 
 
 func GetTweet() {
     loadEnv()
@@ -118,16 +108,10 @@ func GetTweet() {
     var tag_form tagImg
     var images []string
     i := 1
-    // go func() {
-        // tags_form = nil
-        // tag_form.text = ""
-        // tag_form.img = nil
-        // images = nil
         for {searchResult, _ := api.GetSearch("%23", v)
             for _, tweet := range searchResult.Statuses {
                 images = nil
                 medias := tweet.Entities.Media
-                // fmt.Println(medias)
                 for _, media := range medias {
                     images = append(images, media.Media_url)
                 }
@@ -135,17 +119,13 @@ func GetTweet() {
                 for _, tag := range tags {
                     if tag.Text != ""  {
                         tag_form.text = tag.Text
-                        // tag_form.img = append(tag_form.img, images)
-                        // for _, _ = range images {
                         for _, img := range images{
                             tag_form.img = append(tag_form.img, img)
-                            // tag_form.img = append(tag_form.img, "あああ")
                         }
                         tags_form = append(tags_form, tag_form)
                         tag_form.img = nil
                     }
                 }
-                // fmt.Println(images)
             }
             fmt.Println(i)
             if i % 3 == 0 {
@@ -162,8 +142,6 @@ func GetTweet() {
             i = i + 1
             time.Sleep(5 * time.Second)
         }
-    // }()
-
     // シグナル用のチャネル定義
     quit := make(chan os.Signal)
     // 受け取るシグナルを設定
