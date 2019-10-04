@@ -43,17 +43,22 @@ func getTwitterApi() *anaconda.TwitterApi {
 }
 
 func Sort(mstr []tagStr) []tagStr { 
-    i := 1
+    so := 1
+    if len(mstr) == 0 || len(mstr) == 1 {
+    	return mstr
+    }
     for {
-        if mstr[i - 1].point < mstr[i].point {
-            mstr[i - 1], mstr[i] = mstr[i], mstr[i -1]
-            i = 0
+        if mstr[so - 1].point < mstr[so].point {
+        	fmt.Println("うううううううううううう")
+            mstr[so - 1], mstr[so] = mstr[so], mstr[so -1]
+            so = 0
         }
-        i = i + 1
-        if i == len(mstr) {
+        so = so + 1
+        if so == len(mstr) {
             break
         }
     }
+    fmt.Println("いいいいいいいいいいい")
     return mstr
 }
 
@@ -87,35 +92,23 @@ func arrayToStruct(array []tagImg) []tagStr {
         tagim.point = tagim.count * len(tagim.images)
         m_structt = append(m_structt, tagim)
     }
-    m_structt = compress(m_structt)
+    // m_structt = compress(m_structt)
     return Sort(m_structt)
 }
-func compress(array []tagStr) []tagStr {
-    for i, _ := range array {
-        for j := i+1; j < len(array); j++ {
-            if array[i].text == array[j].text{
-                array = delete(array, j)
-                fmt.Println("aaaa")
-            }
-        }
-    }
-    return array
-}
-
-func delete(array []tagStr, j int) []tagStr {
-    var newTagStr []tagStr
-    for i := 0;i < j; i++ {
-        newTagStr = append(newTagStr, array[i])
-    }
-    if j != len(array){
-        for i := j+1; i < len(array); i++ {
-            newTagStr = append(newTagStr, array[i])
-        }
-    }
-    return newTagStr
-}
+// func compress(array []tagStr) []tagStr {
+//     for i, _ := range array {
+//         for j := i+1; j < len(array); j++ {
+//             if array[i].text == array[j].text{
+//                 array[j].point = 0
+//             }
+//         }
+//     }
+//     return array
+// } 
 
 func GetTweet() {
+    loadEnv()
+
     api := getTwitterApi()
 
     v := url.Values{}
@@ -126,10 +119,15 @@ func GetTweet() {
     var images []string
     i := 1
     // go func() {
+        // tags_form = nil
+        // tag_form.text = ""
+        // tag_form.img = nil
+        // images = nil
         for {searchResult, _ := api.GetSearch("%23", v)
             for _, tweet := range searchResult.Statuses {
                 images = nil
                 medias := tweet.Entities.Media
+                // fmt.Println(medias)
                 for _, media := range medias {
                     images = append(images, media.Media_url)
                 }
@@ -137,21 +135,30 @@ func GetTweet() {
                 for _, tag := range tags {
                     if tag.Text != ""  {
                         tag_form.text = tag.Text
+                        // tag_form.img = append(tag_form.img, images)
+                        // for _, _ = range images {
                         for _, img := range images{
                             tag_form.img = append(tag_form.img, img)
+                            // tag_form.img = append(tag_form.img, "あああ")
                         }
                         tags_form = append(tags_form, tag_form)
                         tag_form.img = nil
                     }
                 }
+                // fmt.Println(images)
             }
             fmt.Println(i)
-            if i % 20 == 0 {
-                for k := 0; k < 10; k++{
-                    fmt.Println(arrayToStruct(tags_form)[k])
-                }
-                tags_form = nil
-            }
+            if i % 3 == 0 {
+            	if len(arrayToStruct(tags_form)) > 2{
+                	for k := 0; k < 10; k++{
+                		fmt.Println("あああああああああ")
+                    	fmt.Println(arrayToStruct(tags_form)[k])
+                	}
+                	tags_form = nil
+            	}else{
+        		fmt.Println("十分な数のツイートを取得できませんでした。")
+        		}
+        	}
             i = i + 1
             time.Sleep(5 * time.Second)
         }
@@ -165,5 +172,4 @@ func GetTweet() {
 
     // シグナルを受け取った後にしたい処理を書く
     fmt.Println("終了しました。")
-
 }
